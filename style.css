@@ -1,0 +1,212 @@
+/* --- 1. GENERAL & LAYOUT --- */
+body {
+    background-color: #0e0e1a; 
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    overflow: hidden; 
+}
+
+/* Main Card Container */
+.anniversary-container {
+    position: relative;
+    width: 90%;
+    max-width: 850px; /* Thoda bada card */
+    padding: 40px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 50px rgba(255, 105, 180, 0.3); /* Initial soft glow */
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Slide Container and Layout */
+.content-slides {
+    width: 100%;
+    position: relative;
+    min-height: 450px; 
+}
+
+.slide {
+    display: none; 
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; 
+    gap: 40px;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.active-slide {
+    display: grid;
+    opacity: 1;
+}
+
+/* --- 2. PHOTO & GLOW EFFECT --- */
+.photo-frame {
+    position: relative;
+    padding: 10px;
+    width: 250px; /* Thodi badi photo */
+    height: 250px;
+    margin: 0 auto;
+    border-radius: 50%;
+    animation: photoGlow 3s ease-in-out infinite alternate;
+    /* Hide overflow for click scene */
+    overflow: hidden; 
+}
+
+.main-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+    border: 5px solid #ff69b4; 
+    transition: transform 0.5s;
+}
+
+@keyframes photoGlow {
+    from { box-shadow: 0 0 10px #ff69b4, 0 0 20px #ff69b4; }
+    to { box-shadow: 0 0 30px #ff69b4, 0 0 60px #ffc0cb; }
+}
+
+/* --- 3. TEXT & TYPING ANIMATION --- */
+.message-box {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.main-heading {
+    color: #ffc0cb;
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5em; /* Bigger heading */
+    letter-spacing: 1px;
+    margin-top: 0;
+    overflow: hidden; 
+    border-right: .15em solid #ff69b4; 
+    white-space: nowrap;
+    width: 0; 
+    animation: typing 3.5s steps(30, end) forwards, blink-caret .75s step-end infinite;
+}
+@keyframes typing { from { width: 0 } to { width: 100% } }
+@keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #ff69b4; } }
+
+.quote {
+    font-style: italic;
+    color: #ffd700;
+    border-left: 3px solid #ff69b4;
+    padding-left: 15px;
+    margin: 15px 0;
+}
+
+/* --- 4. DIL BEHLA DENE WALA SCENE (Heart Click) --- */
+.heart-click-trigger {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4em;
+    cursor: pointer;
+    opacity: 0.9;
+    transition: transform 0.3s ease-in-out;
+    z-index: 20;
+    /* Pulsating animation */
+    animation: pulse 1.5s infinite alternate;
+}
+
+.heart-click-trigger:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+@keyframes pulse {
+    from { text-shadow: 0 0 5px #ffc0cb; }
+    to { text-shadow: 0 0 15px #ff69b4, 0 0 25px #ffc0cb; }
+}
+
+/* Heart Burst Particles Styling (created by JS) */
+.heart-particle {
+    position: absolute;
+    color: #ff69b4; /* Pink heart color */
+    font-size: 20px;
+    transition: transform 1s, opacity 1s;
+    user-select: none;
+    pointer-events: none;
+    opacity: 0;
+}
+
+
+/* --- 5. PARTICLE BACKGROUND EFFECTS --- */
+.background-effects {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 5;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #ffc0cb;
+    opacity: 0;
+    animation: particleFall 15s linear infinite; /* Slower, longer animation */
+}
+
+/* Positioning and delay for better dispersion */
+.particle-1 { top: 10%; left: 80%; animation-delay: 0s; transform: scale(1); }
+.particle-2 { top: 50%; left: 20%; animation-delay: 3s; transform: scale(0.7); }
+.particle-3 { top: 80%; left: 50%; animation-delay: 6s; transform: scale(1.2); }
+.particle-4 { top: 30%; left: 5%; animation-delay: 9s; transform: scale(0.9); }
+
+@keyframes particleFall {
+    0% { transform: translateY(-100px) translateX(0) rotate(0deg); opacity: 0; }
+    50% { opacity: 0.8; }
+    100% { transform: translateY(1000px) translateX(100px) rotate(360deg); opacity: 0; }
+}
+
+/* --- (Keep Navigation & Media Query for Responsiveness) --- */
+.navigation {
+    margin-top: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+}
+
+.navigation button {
+    background-color: #ff69b4;
+    color: #0e0e1a;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.navigation button:hover {
+    background-color: #ffc0cb;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 105, 180, 0.4);
+}
+
+.navigation button:disabled {
+    background-color: #444;
+    color: #888;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
